@@ -244,21 +244,39 @@
         return;
     }
     
-    if ([self.delegate pinView:self isPinValid:self.input])
-    {
+    [self.delegate pinView:self isPinValid:self.input success:^{
+        
         double delayInSeconds = 0.3f;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             [self.delegate correctPinWasEnteredInPinView:self];
         });
         
-    } else {
+    } failure:^{
         
         [self.inputCirclesView shakeWithCompletion:^{
             [self resetInput];
             [self.delegate incorrectPinWasEnteredInPinView:self];
         }];
-    }
+        
+    }];
+    
+    
+//    if ([self.delegate pinView:self isPinValid:self.input])
+//    {
+//        double delayInSeconds = 0.3f;
+//        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+//        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//            [self.delegate correctPinWasEnteredInPinView:self];
+//        });
+//        
+//    } else {
+//        
+//        [self.inputCirclesView shakeWithCompletion:^{
+//            [self resetInput];
+//            [self.delegate incorrectPinWasEnteredInPinView:self];
+//        }];
+//    }
 }
 
 #pragma mark - Util

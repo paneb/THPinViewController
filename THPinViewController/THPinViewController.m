@@ -190,10 +190,15 @@
     return MAX(pinLength, (NSUInteger)1);
 }
 
-- (BOOL)pinView:(THPinView *)pinView isPinValid:(NSString *)pin
-{
-    return [self.delegate pinViewController:self isPinValid:pin];
+- (void)pinView:(THPinView *)pinView isPinValid:(NSString *)pin success:(void (^)())success failure:(void (^)())failure{
+    
+    [self.delegate pinViewController:self isPinValid:pin success:success failure:failure];
 }
+
+//- (BOOL)pinView:(THPinView *)pinView isPinValid:(NSString *)pin
+//{
+//    return [self.delegate pinViewController:self isPinValid:pin];
+//}
 
 - (void)cancelButtonTappedInPinView:(THPinView *)pinView
 {

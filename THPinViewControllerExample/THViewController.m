@@ -133,13 +133,23 @@ static const NSUInteger THNumberOfPinEntries = 6;
     return 4;
 }
 
-- (BOOL)pinViewController:(THPinViewController *)pinViewController isPinValid:(NSString *)pin
+//- (BOOL)pinViewController:(THPinViewController *)pinViewController isPinValid:(NSString *)pin
+//{
+//    if ([pin isEqualToString:self.correctPin]) {
+//        return YES;
+//    } else {
+//        self.remainingPinEntries--;
+//        return NO;
+//    }
+//}
+
+- (void)pinViewController:(THPinViewController *)pinViewController isPinValid:(NSString *)pin success:(void (^)())success failure:(void (^)())failure
 {
     if ([pin isEqualToString:self.correctPin]) {
-        return YES;
+        success();
     } else {
         self.remainingPinEntries--;
-        return NO;
+        failure();
     }
 }
 
